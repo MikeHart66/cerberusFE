@@ -1,4 +1,4 @@
-## Cerberus X
+## Cerberus X (fantom edition)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/cerberus_x17.svg?style=social)]() 
 [![GitHub stars](https://img.shields.io/github/stars/KrautApps/cerberus.svg?style=social&label=Star)]()
