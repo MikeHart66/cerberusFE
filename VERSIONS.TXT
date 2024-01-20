@@ -1,4 +1,20 @@
-***** v2023-09-16 *****
+***** v2024-01-20 *****
+
+- Removed double source code from stb_truetype.h file    (Author: MikeHart)
+- Added Font.Height:Float( ) Property to mojo and mojo2    (Author: MikeHart)
+- Fixed Font.DrawText not using the Font's height, but the text height.    (Author: MikeHart)
+
+
+
+KNOWN ISSUES: 
+- Window dragging in 32 bit Release mode still crashes, need to figure out why that is.
+- GLFW_APP_ICON doesn't work with OSX and Linux.
+- Because of changes in the Google billing SDK, new apps using brl.cerberusstore in Android can not be submitted atm.
+- Because of changes in the Google admob SDK, new apps using brl.admob in iOS can not be submitted atm.
+
+
+***** v2024-01-19 *****
+
 FIX: [brl.json] Add escaping of tab character to json string parsing. (Author: Phil7)
 FIX: [Android] Fix config var separator character not working for AndroidManifest (Author: dawlane)
 FIX: [TED] Fixed platform plugin not being deployed on Linux. (Author: dawlane)
@@ -9,13 +25,6 @@ MOD: [Mojo2] Update to shader parser fix. Enforce utf8-ascii upper case. (Author
 MOD: [Android] Changed Android Target to support API 33. (Author: Phil7)
 NEW: [Android] Added FileInputStream for Android data files. (Author: Phil7)
 NEW: [Android] Added default Cerberus Icon for Android. (Author: Phil7)
-
-
-KNOWN ISSUES: 
-- Window dragging in 32 bit Release mode still crashes, need to figure out why that is.
-- GLFW_APP_ICON doesn't work with OSX and Linux.
-- Because of changes in the Google billing SDK, new apps using brl.cerberusstore in Android can not be submitted atm.
-- Because of changes in the Google admob SDK, new apps using brl.admob in iOS can not be submitted atm.
 
 
 ***** v2023-05-26 *****
