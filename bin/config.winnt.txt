@@ -49,7 +49,7 @@
 ' Can be overridden. See the Cerberus X documentation on the transcc command line tool
 '
 
-MODPATH="${CERBERUSDIR}/modules;${CERBERUSDIR}/modules_ext;C:\Cerberus_v2022-03-12_Windows\CerberusModules"
+MODPATH="${CERBERUSDIR}/modules;${CERBERUSDIR}/modules_ext;D:/CerberusX/CerberusModules"
 '--------------------
 
 '--------------------
@@ -94,7 +94,7 @@ HTML_PLAYER="${CERBERUSDIR}\bin\cserver_winnt.exe"
 ' In this case, the MINGW_PATH would only need to be set if there is more than one version of MinGW installed and the first entry
 ' in environment PATH is not to be used.
 
-MINGW_PATH="C:\TDM-GCC-64"
+MINGW_PATH="D:\TDM-GCC-64"
 '--------------------
 
 '--------------------
@@ -171,7 +171,8 @@ MSBUILD_PATH="${PROGRAMFILES(x86)}\Microsoft Visual Studio\2019\Community\MSBuil
 '
 ' You can get hold of AGK from https://www.thegamecreators.com/
 
-AGK_PATH="${PROGRAMFILES(x86)}\The Game Creators\AGK2"
+'AGK_PATH="${PROGRAMFILES(x86)}\The Game Creators\AGK2"
+AGK_PATH="D:\Program Files (x86)\The Game Creators\AGK2"
 '
 '--------------------
 
