@@ -1383,6 +1383,10 @@ Class Font
 		Endif
 	End
 	
+	Method Height:Float() Property
+		Return _height
+	End
+	
 	Function Load:Font( path:String,firstChar:Int,numChars:Int,padded:Bool )
 		Local image:=Image.Load( path )
 
@@ -2190,7 +2194,7 @@ Class DrawList
 				DrawRect( x + tmpChar.xoff, y + tmpChar.yoff, _font._pages[tmpChar.page], tmpChar.x, tmpChar.y, tmpChar.width, tmpChar.height )
 				x += tmpChar.advance
 			Next
-			y += _font.TextHeight( text )
+			y += _font.Height
 			x = currX 
 		Next
 	End

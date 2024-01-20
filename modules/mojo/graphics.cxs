@@ -124,6 +124,10 @@ Class Font
 		Return w
 	End
 
+	Method Height:Float( ) Property
+		Return _height
+	End
+
 	Method TextHeight:Float( text:String = "" )
 		If text = ""
 			Return _height
@@ -1026,7 +1030,7 @@ Function DrawText:Void( textLines:String[],x:Int,y:Int,xhandle:Float=0,yhandle:F
 			DrawImageRect( context.font._pages[tmpChar.page], x + tmpChar.xoff, y + tmpChar.yoff, tmpChar.x, tmpChar.y, tmpChar.width, tmpChar.height )
 			x += tmpChar.advance
 		Next
-		y += context.font.TextHeight( text )
+		y += context.font.Height
 		x = currX 
 	Next
 End
