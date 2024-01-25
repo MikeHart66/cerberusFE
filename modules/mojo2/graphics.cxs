@@ -1022,6 +1022,10 @@ Class Material Extends RefCounted
 				glUniform1f u.location,GetScalar( u.name )
 			Case GL_FLOAT_VEC4
 				glUniform4fv u.location,1,GetVector( u.name )
+			Case GL_FLOAT_VEC3
+				glUniform3fv u.location,1,GetVector( u.name )
+			Case GL_FLOAT_VEC2
+				glUniform2fv u.location,1,GetVector( u.name )
 			Case GL_SAMPLER_2D
 				Local tex:=GetTexture( u.name )
 				If tex.Loading
