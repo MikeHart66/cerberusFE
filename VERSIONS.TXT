@@ -1,10 +1,10 @@
-***** v2024-01-25 *****
+***** v2024-07-08 *****
 
 - Removed double source code from stb_truetype.h file    (Author: MikeHart)
 - Added Font.Height:Float( ) Property to mojo and mojo2    (Author: MikeHart)
 - Fixed Font.DrawText not using the Font's height, but the text height.    (Author: MikeHart)
 - Added GL_FLOAT_VEC2 and GL_FLOAT_VEC3 to Material.Load so you can use them in your own shaders.  (Author: MikeHart)
-
+- Removed opengl/es source files due to copyright issues.  (Author: MikeHart)
 
 
 KNOWN ISSUES: 
@@ -13,6 +13,12 @@ KNOWN ISSUES:
 - Because of changes in the Google billing SDK, new apps using brl.cerberusstore in Android can not be submitted atm.
 - Because of changes in the Google admob SDK, new apps using brl.admob in iOS can not be submitted atm.
 
+
+---------------------------------------------------------------------------------------------------------------------
+
+***** SPLIT FROM OFFICAL CERBERUS X REPOSITORY ****
+
+---------------------------------------------------------------------------------------------------------------------
 
 ***** v2024-01-19 *****
 
