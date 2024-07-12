@@ -1,5 +1,5 @@
 ' This is a port of the blobmonster mojo example for mojo2, done by forum user Jimmy.
-
+#MOJO_AUTO_SUSPEND_ENABLED=True
 Import mojo2
 Import cerberus.math
 
@@ -212,7 +212,7 @@ Class blob_monster Extends App
 	 ' Stuff to do on startup...
 	Method OnCreate ()
 		canv = New Canvas
-		blobimage=Image.Load( "blob.png" )
+		blobimage=Image.Load( "blob.png", 0.5, 0.5, Image.Filter)
 
 		theMonster=New BlobMonster(10,10,blobimage,canv)
 		
