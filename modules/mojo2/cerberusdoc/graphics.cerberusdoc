@@ -169,6 +169,12 @@ The @flags parameter can be a bitwise combination of:
 | Texture.ClampST		| Texture S and T coordinates are clamped.
 | Texture.RenderTarget	| The texture can rendered to using a #Canvas.
 | Texture.Managed		| Texture contents are preserved when graphics are lost
+| Texture.RepeatS			| Texture S coordinate is repeated.
+| Texture.RepeatT			| Texture T coordinate is repeated.
+| Texture.RepeatST		| Texture S and T coordinates are repeated.
+| Texture.MirroredRepeatS			| Texture S coordinate is mirrored and repeated.
+| Texture.MirroredRepeatT			| Texture T coordinate is mirrored and repeated.
+| Texture.MirroredRepeatST		| Texture S and T coordinates are mirrored and repeated.
 
 
 # Method Width:Int() Property
@@ -770,6 +776,29 @@ See also: [[SetDefaultMaterial]]
 Draw a triangle.
 
 If @material is null, the current default material is used.
+
+See also: [[SetDefaultMaterial]]
+
+
+# Method DrawTriangleFan:Void(vertices:Float[], material:Material=Null, matX:Float=0.0, matY:Float=0.0, matScaleX:Float=1.0, matScaleY:Float=1.0)
+
+Draw a triangle fan with a given @material.
+
+If @material is null, the current default material is used.
+		
+See also: [[SetDefaultMaterial]]
+
+
+# Method DrawTriangleFan:Void(vertices:Float[], img:Image, imgX:Float=0.0, imgY:Float=0.0, imgScaleX:Float=1.0, imgScaleY:Float=1.0)	
+
+Draw a triangle fan with a given @image.
+	
+See also: [[SetDefaultMaterial]]
+
+
+# Method DrawTriangleFan:Void(x:Float, y:Float, vertices:Float[], img:Image, imgX:Float=0.0, imgY:Float=0.0, imgScaleX:Float=1.0, imgScaleY:Float=1.0)	
+
+Draw a triangle fan with a given @image at a specific position.
 
 See also: [[SetDefaultMaterial]]
 
