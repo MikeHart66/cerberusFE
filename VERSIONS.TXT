@@ -1,4 +1,4 @@
-***** v2024-08-25 *****
+***** v2024-09-19 *****
 
 - Removed double source code from stb_truetype.h file    (Author: MikeHart)
 - Added Font.Height:Float( ) Property to mojo and mojo2    (Author: MikeHart)
@@ -7,6 +7,7 @@
 - Removed opengl/es source files due to copyright issues.  (Author: MikeHart)
 - Fixed Example .\mojo2\userdemos\charlie\blobmonster regarding the image filter   (Author: MikeHart)
 - Added documentation for mojo2.DrawTriangleFan and Texture flags for Repeat and Mirrored    (Author: MikeHart)
+- Fixed Example .\mojo\mak\audiotest\audiotest regarding the music playback on HTML5 and Safari   (Author: MikeHart)
 
 
 KNOWN ISSUES: 

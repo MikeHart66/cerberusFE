@@ -29,12 +29,17 @@ Class MyApp Extends App
 		'
 		'IE wont play WAV/OGG
 		'FF wont play MP3/M4A/WAV
+		'Safari wont play MP3 music
 		'
 		soundFmt="wav"
 		musicFmt="ogg"
 		If UserAgent.Contains( "MSIE " ) Or UserAgent.Contains( "Trident/" ) Or UserAgent.Contains( "Edge/" )
 			soundFmt="mp3"
 			musicFmt="mp3"
+		Endif
+		If UserAgent.Contains( "Safari/" )
+			soundFmt="m4a"
+			musicFmt="m4a"
 		Endif
 		'
 #Elseif TARGET="flash"
