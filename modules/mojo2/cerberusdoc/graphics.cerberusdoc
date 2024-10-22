@@ -619,6 +619,11 @@ Copy current color to @color.
 @color must have a length of at least 3. If the length of @color is greater than 3, alpha is also copied.
 
 
+# Method GetLastDrawCalls:Int( )
+
+Returns the amount of draw calls from the last frame.
+
+
 # Method SetBlendMode:Void( blendMode:Int )
 
 Set blend mode. The @blendMode parameter should be one of:

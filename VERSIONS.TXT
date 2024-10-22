@@ -1,13 +1,14 @@
-***** v2024-09-19 *****
+***** v2024-10-22 *****
 
-- Removed double source code from stb_truetype.h file    (Author: MikeHart)
-- Added Font.Height:Float( ) Property to mojo and mojo2    (Author: MikeHart)
+- Removed double source code from stb_truetype.h file.    (Author: MikeHart)
+- Added Font.Height:Float( ) Property to mojo and mojo2.    (Author: MikeHart)
 - Fixed Font.DrawText not using the Font's height, but the text height.    (Author: MikeHart)
 - Added GL_FLOAT_VEC2 and GL_FLOAT_VEC3 to Material.Load so you can use them in your own shaders.  (Author: MikeHart)
 - Removed opengl/es source files due to copyright issues.  (Author: MikeHart)
-- Fixed Example .\mojo2\userdemos\charlie\blobmonster regarding the image filter   (Author: MikeHart)
-- Added documentation for mojo2.DrawTriangleFan and Texture flags for Repeat and Mirrored    (Author: MikeHart)
-- Fixed Example .\mojo\mak\audiotest\audiotest regarding the music playback on HTML5 and Safari   (Author: MikeHart)
+- Fixed Example .\mojo2\userdemos\charlie\blobmonster regarding the image filter.   (Author: MikeHart)
+- Added documentation for mojo2.DrawTriangleFan and Texture flags for Repeat and Mirrored.    (Author: MikeHart)
+- Fixed Example .\mojo\mak\audiotest\audiotest regarding the music playback on HTML5 and Safari.   (Author: MikeHart)
+- Added Mojo2.graphics.GetLastDrawCalls:Void() command to return the number of draw calls of the last frame.   (Author: MikeHart)
 
 
 KNOWN ISSUES: 
