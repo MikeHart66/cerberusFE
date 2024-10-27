@@ -1,0 +1,96 @@
+Strict
+Import mojo2
+Import math3d
+Import opengl.gles20
+
+Class Canvas3D Extends Canvas
+	Field _viewMatrix3D := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
+    Field _projMatrix3D := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
+    Field _modelMatrix3D := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
+    Field _sinPitch:Float
+    Field _sinYaw:Float
+    Field _sinRoll:Float
+    Field _cosPitch:Float
+    Field _cosYaw:Float
+    Field _cosRoll:Float
+    Field theta:Float
+    Field _sinYaw_cosRoll:Float
+    Field _cosYaw_sinRoll:Float
+    Field _sinYaw_sinRoll:Float
+    Field _cosYaw_cosRoll:Float
+		    
+	Method Init3D:Void()
+		glEnable(GL_DEPTH_TEST)
+		glDepthFunc(GL_LEQUAL)
+		glClear(GL_DEPTH_BUFFER_BIT)
+	End
+	
+	Method SetCamLookAt:Void(camx:Float, camy:Float, camz:Float, eyex:Float, eyey:Float, eyez:Float, upVector:Float[])
+		math3d.Mat4LookAtLH(camx, camy, camz,     eyex, eyey, eyez,     upVector[0], upVector[1], upVector[2], _viewMatrix3D)
+		Self.SetViewMatrix(_viewMatrix3D)	
+	End
+	
+	Method SetProjection3D:Void(fov:Float, aspectratio:Float, near:Float, far:Float)
+    	math3d.Mat4PerspectiveLH(fov, aspectratio, near, far, _projMatrix3D)		
+        Self.SetProjectionMatrix(_projMatrix3D)
+    End
+    
+	Method SetModelMatrix3D:Void(xpos:Float, ypos:Float, zpos:Float, pitch:Float, yaw:Float, roll:Float, xscale:Float,yscale:Float,zscale:Float)  
+		' Code inspired by the CreateMatrixFast Function from the minib3d module
+	
+		' rotation angle about X-axis (pitch) 
+		_sinPitch = Sin(pitch)
+		_cosPitch = Cos(pitch)
+		
+		' rotation angle about Y-axis (yaw) 
+		_sinYaw = Sin(yaw)
+		_cosYaw = Cos(yaw)
+		
+		' rotation angle about Z-axis (roll) 
+		_sinRoll = Sin(roll)
+		_cosRoll = Cos(roll)
+		
+		_sinYaw_cosRoll = _sinYaw * _cosRoll
+		_cosYaw_sinRoll = _cosYaw * _sinRoll
+		_sinYaw_sinRoll = _sinYaw * _sinRoll
+		_cosYaw_cosRoll = _cosYaw * _cosRoll
+	
+		' determine left axis
+		_modelMatrix3D[0] = (_cosYaw_cosRoll + _sinYaw_sinRoll * _sinPitch) * xscale
+		_modelMatrix3D[1] = (_cosPitch * _sinRoll) * xscale
+		_modelMatrix3D[2] = (-_sinYaw_cosRoll + _cosYaw_sinRoll * _sinPitch) * xscale
+		_modelMatrix3D[3] = 0.0
+		
+		' determine up axis
+		_modelMatrix3D[4] = (-_cosYaw_sinRoll + _sinYaw_cosRoll * _sinPitch) * yscale
+		_modelMatrix3D[5] = (_cosPitch *_cosRoll) * yscale
+		_modelMatrix3D[6] = (_sinYaw_sinRoll + _cosYaw_cosRoll * _sinPitch) * yscale
+		_modelMatrix3D[7] = 0.0
+		
+		' determine forward axis
+		_modelMatrix3D[8] = (_sinYaw * _cosPitch) * zscale
+		_modelMatrix3D[9] = (-_sinPitch) * zscale
+		_modelMatrix3D[10] = (_cosPitch * _cosYaw) * zscale
+		_modelMatrix3D[11] = 0.0
+	
+		_modelMatrix3D[12] = xpos
+		_modelMatrix3D[13] = ypos
+		_modelMatrix3D[14] = zpos
+		_modelMatrix3D[15] = 1.0
+		Self.SetModelMatrix(_modelMatrix3D)
+	End
+	
+	Method DrawImage3D:Void(img:Image, x:Float, y:Float, z:Float)
+		Self.SetModelMatrix3D(x,y,z, 0.0,0.0,0.0, 1.0,1.0,1.0)
+		Super.DrawImage(img) 
+	End
+	
+	Method DrawImage3D:Void(img:Image, x:Float, y:Float, z:Float, pitch:Float, yaw:Float, roll:Float)
+		Self.SetModelMatrix3D(x,y,z, pitch,yaw,roll, 1.0,1.0,1.0)
+		Super.DrawImage(img) 
+	End
+	Method DrawImage3D:Void(img:Image, x:Float, y:Float, z:Float, pitch:Float, yaw:Float, roll:Float, xscale:Float,yscale:Float,zscale:Float)
+		Self.SetModelMatrix3D(x,y,z, pitch,yaw,roll, xscale,yscale,zscale)
+		Super.DrawImage(img) 
+	End
+End

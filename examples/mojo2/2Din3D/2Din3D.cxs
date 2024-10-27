@@ -1,7 +1,7 @@
 Strict
 #GLFW_WINDOW_TITLE="2D in 3D Example"
-#GLFW_WINDOW_WIDTH=800					'Set this and HEIGHT to 0 for a 'windowless' glfw app
-#GLFW_WINDOW_HEIGHT=600	
+#GLFW_WINDOW_WIDTH=1920			
+#GLFW_WINDOW_HEIGHT=1080	
 '#GLFW_WINDOW_RESIZABLE=False
 '#GLFW_WINDOW_FULLSCREEN=True
 
@@ -9,74 +9,12 @@ Strict
 #OPENGL_GLES20_ENABLED=True
 
 Import mojo2
-Import math3d
-Import opengl.gles20
+Import graphics3d
 
 #If TARGET="glfw"
-Import brl.process
+Import brl.process           ' For ExitApp
 #End
 
-Class Canvas3D Extends Canvas
-	
-	Method SetCamLookAt:Void(camx:Float, camy:Float, camz:Float, eyex:Float, eyey:Float, eyez:Float, upVector:Float[])
-		Local viewMatrix := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
-		Mat4LookAtLH(camx, camy, camz,     eyex, eyey, eyez,     upVector[0], upVector[1], upVector[2], viewMatrix)
-		Self.SetViewMatrix(viewMatrix)	
-	End
-	
-	Method SetProjection3D:Void(fov:Float, aspectratio:Float, near:Float, far:Float)
-		Local projMatrix := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
-    	Mat4PerspectiveLH(fov, aspectratio, near, far, projMatrix)		
-        Self.SetProjectionMatrix(projMatrix)
-    End
-    
-	Method SetModelMatrix3D:Void(xpos:Float, ypos:Float, zpos:Float, pitch:Float, yaw:Float, roll:Float, xscale:Float,yscale:Float,zscale:Float)  
-		' Code inspired by the CreateMatrixFast Function from the minib3d module
-		Local sx:Float, sy:Float, sz:Float, cx:Float, cy:Float, cz:Float, theta:Float
-    	Local modelMatrix1 := [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
-		
-		'' rotation angle about X-axis (pitch) 
-		sx = Sin(pitch)
-		cx = Cos(pitch)
-		
-		'' rotation angle about Y-axis (yaw) 
-		sy = Sin(yaw)
-		cy = Cos(yaw)
-		
-		'' rotation angle about Z-axis (roll) 
-		sz = Sin(roll)
-		cz = Cos(roll)
-		
-		Local sycz:Float = sy*cz
-		Local cysz:Float = cy*sz
-		Local sysz:Float = sy*sz
-		Local cycz:Float = cy*cz
-		
-		'' determine left axis
-		modelMatrix1[0] = (cycz+sysz*sx) *xscale
-		modelMatrix1[1] = (cx*sz) *xscale
-		modelMatrix1[2] = (-sycz+cysz*sx) *xscale
-		modelMatrix1[3] = 0.0
-		
-		'' determine up axis
-		modelMatrix1[4] = (-cysz+sycz*sx) *yscale
-		modelMatrix1[5] = (cx*cz) *yscale
-		modelMatrix1[6] = (sysz+cycz*sx) *yscale
-		modelMatrix1[7] = 0.0
-		
-		'' determine forward axis
-		modelMatrix1[8] = (sy*cx) *zscale
-		modelMatrix1[9] = (-sx) *zscale
-		modelMatrix1[10] = (cx*cy) *zscale
-		modelMatrix1[11] = 0.0
-	
-		modelMatrix1[12] = xpos
-		modelMatrix1[13] = ypos
-		modelMatrix1[14] = zpos
-		modelMatrix1[15] = 1.0
-		Self.SetModelMatrix(modelMatrix1)
-	End
-End
 
 '*******************************************************************    
 ' Define the myClass that extends the App Class.    
@@ -154,11 +92,11 @@ Class myClass Extends App
     		camy = -80.0
 			camz = -140.0
 		Endif
+		canv3D.SetCamLookAt(camx, camy, camz,     camx+30, 0, camz+140.0, [0.0, 1.0, 0.0])
+		
 #If TARGET="glfw"
     	If KeyDown(KEY_ESCAPE) Then ExitApp(0)
 #End   	
-		canv3D.SetCamLookAt(camx, camy, camz,     camx, 0, camz+140.0, [0.0, 1.0, 0.0])
-		
 		
         Return 0
     End
@@ -166,19 +104,15 @@ Class myClass Extends App
 	'---------------------------------------------------------------
     Method OnRender:Int()
 
-		glEnable(GL_DEPTH_TEST)
-		glDepthFunc(GL_LEQUAL)
-		glClear(GL_DEPTH_BUFFER_BIT)
-		
-'		glClear(GL_COLOR_BUFFER_BIT)
-		
 		canvUI.Clear()
 		drwLstUI.Reset()
 		drwLst3D.Reset()
-        
+		
+        canv3D.Init3D()
         canv3D.Clear(0 ,0,.5)	
 		canv3D.PushMatrix()
-		canv3D.SetColor(1,1,1)        
+		canv3D.SetColor(1,1,1)  
+		      
         Local items:Int
         Local items2:Int
         Local size:Int=1024
@@ -195,31 +129,25 @@ Class myClass Extends App
 
         'Plants
         Seed=1563
-		Local mm:=[1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
 		For Local z:Int = size To -size Step -16
-			canv3D.SetModelMatrix3D(0,0,z+8, 0.0,0.0,0.0, 1.0,1.0,1.0)
+			'canv3D.SetModelMatrix3D(0,0,z+8, 0.0,0.0,0.0, 1.0,1.0,1.0)
 			For Local x:Int = -size To size Step 16
 	        	If Int(Rnd(1,100)) >= 90
-		        	canv3D.DrawImage(imgPlant,x,0.0) 
+		        	'canv3D.DrawImage(imgPlant,x,0.0) 
+		        	canv3D.DrawImage3D(imgPlant,x,0.0, z+8,-25,0,0) 
 		        	items2+=1
 				Endif
 	        Next
         Next
-'        Local in:Float[2]
-'        Local out:Float[3]
-'        in[0] = MouseX()
-'        in[1] = MouseY()
-'        canv3D.TransformCoords([MouseX(),MouseY()],out)
+
         canv3D.PopMatrix()
 
 		' Draw  UI
         drwLstUI.SetColor(1,1,1)
         drwLstUI.DrawText( "Camera position = "+Int(camx)+":"+Int(camy)+":"+Int(camz), 10,10, 0.0,0.5)
-        drwLstUI.DrawText( "FPS = "+FPS+"   ( "+items+" : "+items2+" )", 10,25, 0.0,0.5)
-'        drwLstUI.DrawText( "in  = "+in[0]+":"+in[1], 10,40, 0.0,0.5)
-'        drwLstUI.DrawText( "out = "+out[0]+":"+out[1]+":"+out[2], 10,55, 0.0,0.5)
+        drwLstUI.DrawText( "FPS = "+FPS+"   ( tiles="+items+" : items="+items2+" )", 10,25, 0.0,0.5)
 
-        drwLstUI.DrawText( "Press Cursor-Keys and PageUp/-Down to move the camera", 10,_cH-10 , 0.0,0.5)
+        drwLstUI.DrawText( "Press Cursor-Keys and PageUp/-Down to move the camera. Press SPACE to reset the view.", 10,_cH-10 , 0.0,0.5)
         drwLstUI.SetAlpha(0.5)
         drwLstUI.DrawImage(imgLogo,_cW-60,_cH-60,0,0.4,0.4)
         drwLstUI.SetAlpha(1.0)
