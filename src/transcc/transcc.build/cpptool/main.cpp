@@ -18836,7 +18836,7 @@ String c_TransCC::p_GetReleaseVersion(){
 }
 void c_TransCC::p_Run(Array<String > t_args){
 	gc_assign(this->m_args,t_args);
-	bbPrint(String(L"TRANS cerberus compiler V2023-10-14",35));
+	bbPrint(String(L"TRANS cerberus compiler V2024-11-23",35));
 	m_cerberusdir=GetEnv(String(L"CERBERUS_DIR",12));
 	m__libs=m_cerberusdir+String(L"/libs/",6);
 	SetEnv(String(L"CERBERUSDIR",11),m_cerberusdir);
@@ -21518,6 +21518,8 @@ void c_Html5Builder::p_MakeTarget(){
 	t_cvrep=t_cvrep+(String(L"\nvar CANVAS_HEIGHT=",19)+bb_config_GetConfigVar(String(L"HTML5_CANVAS_HEIGHT",19))+String(L";",1));
 	t_cvrep=t_cvrep+(String(L"\nvar CONSOLE_SHOW=",18)+bb_config_GetConfigVar(String(L"HTML5_CONSOLE_SHOW",18))+String(L";",1));
 	t_game=bb_transcc_ReplaceBlock(t_game,String(L"CANVAS",6),t_cvrep,String(L"\n<!--",5));
+	t_game=bb_transcc_ReplaceBlock(t_game,String(L"HEAD_SCRIPTS",12),bb_config_GetConfigVar(String(L"HTML5_HEAD_SCRIPTS",18)),String(L"\n<!--",5));
+	t_game=bb_transcc_ReplaceBlock(t_game,String(L"BODY_SCRIPTS",12),bb_config_GetConfigVar(String(L"HTML5_BODY_SCRIPTS",18)),String(L"\n<!--",5));
 	SaveString(t_game,bb_config_GetConfigVar(String(L"HTML5_APP_FILENAME",18)));
 	if(m_tcc->m_opt_run){
 		String t_p=RealPath(bb_config_GetConfigVar(String(L"HTML5_APP_FILENAME",18)));

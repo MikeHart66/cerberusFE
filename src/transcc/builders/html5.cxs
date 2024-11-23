@@ -79,6 +79,9 @@ Class Html5Builder Extends Builder
 		cvrep += "~n" + "var CANVAS_HEIGHT="+GetConfigVar("HTML5_CANVAS_HEIGHT")+";"
 		cvrep += "~n" + "var CONSOLE_SHOW="+GetConfigVar("HTML5_CONSOLE_SHOW")+";"
 		game=ReplaceBlock( game,"CANVAS",cvrep,"~n<!--" )
+		
+		game=ReplaceBlock( game,"HEAD_SCRIPTS",GetConfigVar("HTML5_HEAD_SCRIPTS"),"~n<!--" )
+		game=ReplaceBlock( game,"BODY_SCRIPTS",GetConfigVar("HTML5_BODY_SCRIPTS"),"~n<!--" )
 
 		
 		'game = game.Replace("%%HTML5_CONSOLE_SHOW%%", GetConfigVar("HTML5_CONSOLE_SHOW") )
