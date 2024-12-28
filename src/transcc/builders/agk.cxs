@@ -23,11 +23,11 @@ Class AGKBuilder Extends Builder
 		Return config.Join( "~n" )
 	End
 	
-	'***** Vc2017 *****
-	Method MakeVc2017:Void()
+	'***** Vc2022 *****
+	Method MakeVc2022:Void()
 
 		Local buildpath:String  
-		buildpath = os.CurrentDir()+"\AGKTemplate\apps\template_windows_vs2017_64"		
+		buildpath = os.CurrentDir()+"\AGKTemplate\apps\template_windows_vs2022_64"		
 		
 		Local template:=LoadString( buildpath+"\template.cpp" )
 		Local templateh:=LoadString( buildpath+"\template.h" )
@@ -106,7 +106,7 @@ Class AGKBuilder Extends Builder
 	Method MakeTarget:Void()
 		Select HostOS
 			Case "winnt"
-				MakeVc2017		
+				MakeVc2022		
 			Case "macos"
 				MakeXcode
 		End

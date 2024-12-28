@@ -17,7 +17,7 @@ Import brl.filestream
 Import brl.requesters
 Import os
 
-#GLFW_APP_LABEL="AGKBuildTarget V1.17"
+#GLFW_APP_LABEL="AGKBuildTarget V1.18"
 #GLFW_APP_PUBLISHER="Michael Hartlef"
 
 Global _i:Int
@@ -493,9 +493,9 @@ Function BuildTemplate:Void(_path:String, cerberusPath:String)
 
 		CopyDir(_path+"/Tier 2/bullet",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/bullet"), True)
 		CopyDir(_path+"/Tier 2/common",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/common"), True)
-		CopyDir(_path+"/Tier 2/platform/windows/Lib/VS2017",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/platform/windows/Lib/VS2017"), True)
+		CopyDir(_path+"/Tier 2/platform/windows/Lib/VS2022",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/platform/windows/Lib/VS2022"), True)
 		CopyDir(_path+"/Tier 2/platform/windows/Source",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/platform/windows/Source"), True)
-		CopyDir(_path+"/Tier 2/apps/template_windows_vs2017_64",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2017_64"), True)
+		CopyDir(_path+"/Tier 2/apps/template_windows_vs2022_64",(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2022_64"), True)
 		
 
 		CopyFile(cerberusPath+"/tools/build_agk/targetfiles/target_desktop.cxs",cerberusPath+"/targets_ext/appgamekit/target.cxs")
@@ -503,16 +503,16 @@ Function BuildTemplate:Void(_path:String, cerberusPath:String)
 
 
 		' modify the template.h file
-		Local templateh:=LoadString(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2017_64/template.h" )
+		Local templateh:=LoadString(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2022_64/template.h" )
 
 		Local _starth:=templateh.Find( "#define DEVICE_WIDTH 1024" )
 		Local _endh:=templateh.Find( "// used to make a more unique folder for the write path" )
 		
 		templateh = templateh[0.._starth]+"//${CONFIG_BEGIN}~n//${CONFIG_END}~n~n"+templateh[_endh..templateh.Length()]
-		SaveString templateh,( cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2017_64/template.h" )
+		SaveString templateh,( cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2022_64/template.h" )
 
 		' modify the template.cpp file
-		Local template:=LoadString(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2017_64/template.cpp" )
+		Local template:=LoadString(cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2022_64/template.cpp" )
 
 		Local _end:=template.Find( "// Namespace" )
 		Local _start:=_end-1
@@ -529,7 +529,7 @@ Function BuildTemplate:Void(_path:String, cerberusPath:String)
 		
 		template = template[0.._start-1]+"~treturn bbMain(); "+template[_end..template.Length()]
 
-		SaveString template,( cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2017_64/template.cpp" )
+		SaveString template,( cerberusPath+"/targets_ext/appgamekit/template/AGKTemplate/apps/template_windows_vs2022_64/template.cpp" )
 		
 End
 

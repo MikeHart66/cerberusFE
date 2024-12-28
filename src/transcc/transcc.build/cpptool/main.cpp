@@ -7,6 +7,7 @@
 #define CFG_BRL_OS_IMPLEMENTED 1
 #define CFG_BRL_STREAM_IMPLEMENTED 1
 #define CFG_BRL_THREAD_IMPLEMENTED 1
+#define CFG_CC_OUTPUT_NAME transcc_winnt
 #define CFG_CC_USE_MINGW 1
 #define CFG_CD 
 #define CFG_CONFIG release
@@ -16160,7 +16161,7 @@ class c_AGKBuilder : public c_Builder{
 	void p_Begin();
 	String p_Config();
 	void p_CreateMediaDir(String);
-	void p_MakeVc2017();
+	void p_MakeVc2022();
 	void p_MakeXcode();
 	void p_MakeTarget();
 	void mark();
@@ -18836,7 +18837,7 @@ String c_TransCC::p_GetReleaseVersion(){
 }
 void c_TransCC::p_Run(Array<String > t_args){
 	gc_assign(this->m_args,t_args);
-	bbPrint(String(L"TRANS cerberus compiler V2024-11-23",35));
+	bbPrint(String(L"TRANS cerberus compiler V2024-12-25",35));
 	m_cerberusdir=GetEnv(String(L"CERBERUS_DIR",12));
 	m__libs=m_cerberusdir+String(L"/libs/",6);
 	SetEnv(String(L"CERBERUSDIR",11),m_cerberusdir);
@@ -21521,6 +21522,7 @@ void c_Html5Builder::p_MakeTarget(){
 	t_game=bb_transcc_ReplaceBlock(t_game,String(L"HEAD_SCRIPTS",12),bb_config_GetConfigVar(String(L"HTML5_HEAD_SCRIPTS",18)),String(L"\n<!--",5));
 	t_game=bb_transcc_ReplaceBlock(t_game,String(L"BODY_SCRIPTS",12),bb_config_GetConfigVar(String(L"HTML5_BODY_SCRIPTS",18)),String(L"\n<!--",5));
 	SaveString(t_game,bb_config_GetConfigVar(String(L"HTML5_APP_FILENAME",18)));
+	p_CopySourceFiles(String(L".",1));
 	if(m_tcc->m_opt_run){
 		String t_p=RealPath(bb_config_GetConfigVar(String(L"HTML5_APP_FILENAME",18)));
 		String t_t=m_tcc->m_HTML_PLAYER+String(L" \"",2)+t_p+String(L"\"",1);
@@ -22254,9 +22256,9 @@ void c_AGKBuilder::p_CreateMediaDir(String t_dir){
 		}
 	}
 }
-void c_AGKBuilder::p_MakeVc2017(){
+void c_AGKBuilder::p_MakeVc2022(){
 	String t_buildpath=String();
-	t_buildpath=CurrentDir()+String(L"\\AGKTemplate\\apps\\template_windows_vs2017_64",44);
+	t_buildpath=CurrentDir()+String(L"\\AGKTemplate\\apps\\template_windows_vs2022_64",44);
 	String t_template=LoadString(t_buildpath+String(L"\\template.cpp",13));
 	String t_templateh=LoadString(t_buildpath+String(L"\\template.h",11));
 	t_template=bb_transcc_ReplaceBlock(t_template,String(L"TRANSCODE",9),m_transCode,String(L"\n//",3));
@@ -22295,7 +22297,7 @@ void c_AGKBuilder::p_MakeXcode(){
 void c_AGKBuilder::p_MakeTarget(){
 	String t_2=HostOS();
 	if(t_2==String(L"winnt",5)){
-		p_MakeVc2017();
+		p_MakeVc2022();
 	}else{
 		if(t_2==String(L"macos",5)){
 			p_MakeXcode();

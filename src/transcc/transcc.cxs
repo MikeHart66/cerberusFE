@@ -3,6 +3,8 @@
 ' Placed into the public domain 24/02/2011.
 ' No warranty implied; use at your own risk.
 
+#CC_OUTPUT_NAME="transcc_winnt"
+
 Import trans
 Import builders
 
@@ -17,9 +19,9 @@ Import builders
 	#DEBUG_TARGET="HTML"
 	Import debugconf
 	
-	Const VERSION:="2024-11-23 (DEBUG)"
+	Const VERSION:="2024-12-25 (DEBUG)"
 #Else
-    Const VERSION:="2024-11-23"
+    Const VERSION:="2024-12-25"
 #Endif
 
 Function Main()
